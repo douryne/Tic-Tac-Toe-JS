@@ -1,0 +1,22 @@
+:root {
+    --first-color: #16f;
+    --second-color: #ff7;
+}
+
+body {
+    box-sizing: border-box;
+    margin: 0;
+    display: flex;
+    margin-top: 60px;
+    justify-content: center;
+}
+
+table {
+    width: 800px;
+    height: 800px;
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid #000;
+}
