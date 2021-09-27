@@ -15,3 +15,12 @@ table {
 td {
     border: 1px solid #000;
 }
+
+td[data-moved-by="cross"] {
+    background-color: #add8e6;
+}
+
+td[data-moved-by="zero"] {
+    background-color: #ffff96;
+}
+
