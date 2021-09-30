@@ -3,31 +3,57 @@ const cells = Array.from(document.querySelectorAll("td"));
 let crossTurn = true;
 
 board.addEventListener("mousedown", ({ target }) => {
-    if(target.dataset.movedBy) return;
+    if (target.dataset.player) return;
 
-    target.dataset.movedBy = crossTurn ? "cross" : "zero";
+    target.dataset.player = crossTurn ? "cross" : "zero";
     crossTurn = !crossTurn;
 
-    alertResult();
-})
-
-function alertResult() {
     const winner = getWinner();
-    if(!winner) return;
+    if (!winner) return;
     alert(winner);
     resetGame();
-}
+})
 
 function resetGame() {    
-    cells.forEach(cell => delete cell.dataset.movedBy);
+    cells.forEach(cell => delete cell.dataset.player);
     crossTurn = true;
 }
 
 function getWinner() {
-    // if(noWinner) return undefined;
-    // if() return "X winner!";
-    // if() return "0 winner!";
-    const cellsColored = cells.filter((cell) => cell.dataset.movedBy);
+    const winner = [getWinnerByDiagonals(), getWinnerByRows(), getWinnerByColumns()].find(winner => winner);
+    if (winner) return winner === "cross" ? "X winner" : "0 winner";
 
-    if(cellsColored.length === cells.length) return "Draw!";
+    // Tie
+    const cellsColored = cells.filter((cell) => cell.dataset.player);
+    if (cellsColored.length === cells.length) return "Tie";
+}
+
+function getWinnerByColumns() {
+    for (let x = 0; x < 3; x++) {
+        const column = [cells[x], cells[x+3], cells[x+6]];
+        const winner = getPlayerIfCellsAreEqual(column);
+        if (winner) return winner;
+    }
+}
+
+function getWinnerByRows() {
+    for (let x = 0; x < 7; x += 3) {
+        const row = [cells[x], cells[x+1], cells[x+2]];
+        const winner = getPlayerIfCellsAreEqual(row);
+        if (winner) return winner;
+    }
+}
+
+function getWinnerByDiagonals() {
+    const firstDiagonal = [cells[0], cells[4], cells[8]];
+    const secondDiagonal = [cells[2], cells[4], cells[6]];
+
+    const winner = [getPlayerIfCellsAreEqual(firstDiagonal), getPlayerIfCellsAreEqual(secondDiagonal)].find((winner) => winner);
+    return winner;
+}
+
+
+function getPlayerIfCellsAreEqual(array) {
+    const cellsAreEqual = array.every(cell => cell.dataset.player === array[0].dataset.player);
+    if (cellsAreEqual) return array[0].dataset.player;
 }
