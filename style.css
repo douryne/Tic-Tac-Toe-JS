@@ -4,11 +4,16 @@ body {
     display: flex;
     margin-top: 50px;
     justify-content: center;
+    gap: clamp(20px, 5vw, 100px);
+    flex-wrap: wrap;
+
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 64px;
 }
 
 table {
-    width: clamp(200px, 40vw, 600px);
-    height: clamp(200px, 40vw, 600px);
+    width: clamp(min(450px, 100vw), 35vw, 600px);
+    height: clamp(min(450px, 100vw), 35vw, 600px);
     border-collapse: collapse;
 }
 
@@ -22,28 +27,26 @@ td[data-player="cross"]::after, td[data-player="cross"]::before {
     position: absolute;
     content: '';
     border: clamp(2px, 1vw, 5px) solid #0c6e8f;
-    width: clamp(35px, 10vw, 130px);
+    width: clamp(45px, 10vw, 130px);
     top: 50%;
     bottom: 50%;
     right: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(var(--rotate));
 
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 td[data-player="cross"]::before {
     --rotate: -45deg;
 }
-  
-
 
 td[data-player="zero"]::after, td[data-player="zero"]::before {
     position: absolute;
     content: '';
-    width: clamp(35px, 8vw, 120px);
-    height: clamp(35px, 8vw, 120px);
-    border: clamp(1px, .7vw, 8px) solid #ffff00;
+    width: clamp(45px, 8vw, 120px);
+    height: clamp(45px, 8vw, 120px);
+    border: clamp(2px, .7vw, 8px) solid #ffff00;
     border-radius: 100%;
 
     right: 50%;
@@ -59,3 +62,8 @@ td[data-player="zero"]::before {
     height: clamp(25px, 6vw, 120px);
 }
 
+.count {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}

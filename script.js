@@ -1,6 +1,15 @@
 const board = document.querySelector("table");
 const cells = Array.from(document.querySelectorAll("td"));
 let crossTurn = true;
+const victories = {
+    "X winner": 0,
+    "0 winner": 0,
+
+    increment: function(string) {
+        this[string] += 1;
+        return this[string];
+    }
+}
 
 board.addEventListener("mousedown", ({ target }) => {
     if (target.dataset.player) return;
@@ -10,8 +19,13 @@ board.addEventListener("mousedown", ({ target }) => {
 
     const winner = getWinner();
     if (!winner) return;
+
     alert(winner);
     resetGame();
+
+    if(winner === "Tie") return;
+    const victoryCounterElement = document.getElementById(winner);
+    victoryCounterElement.textContent = victories.increment(winner);
 })
 
 function resetGame() {    
